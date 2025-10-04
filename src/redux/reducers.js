@@ -1,4 +1,5 @@
-import { ADD, DELETE, FIND } from "./constants";
+import { createReducer } from "@reduxjs/toolkit";
+import { addAction, deleteAction, findAction } from "./actions";
 
 import { nanoid } from "nanoid";
 
@@ -7,9 +8,9 @@ const initialState = {
   filter: "",
 };
 
-export const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ADD:
+export const reducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase(addAction, (state, action) => {
       const newContact = {
         id: nanoid(5),
         name: action.payload.name,
@@ -20,19 +21,19 @@ export const reducer = (state = initialState, action) => {
         ...state,
         contacts: [...state.contacts, newContact],
       };
-    case DELETE:
+    })
+    .addCase(deleteAction, (state, action) => {
       return {
         ...state,
         contacts: state.contacts.filter(
           (contact) => contact.id !== action.payload
         ),
       };
-    case FIND:
+    })
+    .addCase(findAction, (state, action) => {
       return {
         ...state,
         filter: action.payload,
       };
-    default:
-      return state;
-  }
-};
+    })
+});

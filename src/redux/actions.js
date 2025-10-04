@@ -1,16 +1,8 @@
+import { createAction } from "@reduxjs/toolkit";
 import { ADD, DELETE, FIND } from "./constants";
 
-export const addAction = (contact) => ({
-  type: ADD,
-  payload: contact
-});
+export const addAction = createAction(ADD);
 
-export const deleteAction = (id) => ({
-  type: DELETE,
-  payload: id
-});
+export const deleteAction = createAction(DELETE);
 
-export const findAction = (filter) => ({
-  type: FIND,
-  payload: filter
-});
+export const findAction = createAction(FIND);
